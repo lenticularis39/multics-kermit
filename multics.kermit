@@ -1,0 +1,25 @@
+; Wait for Multics prompt
+define MULTICS_W_PROMPT {
+	input 5 r Guest.Guest
+}
+
+; Start Kermit server in the background
+define MULTICS_S_KERMIT {
+	output kermit\13
+	input 5 Multics-Kermit:
+	if fail stop 1 Kermit launch failed
+	output server\13
+	output \3
+	MULTICS_W_PROMPT
+	if fail stop 1 Break failed
+}
+
+; Send a file to Multics
+; Requires: Kermit server running in background
+define MULTICS_PUT {
+	output start\13 ; Go back to server
+	put \%*
+	output \3
+	MULTICS_W_PROMPT
+	if fail stop 1 Break failed
+}

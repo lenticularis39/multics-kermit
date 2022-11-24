@@ -1,0 +1,11 @@
+take multics.kermit
+
+define BANAI_CONNECT {
+	set host connect.ban.ai
+	if fail stop 1 Connection to BAN.AI failed
+	input 5 Multics
+	if fail stop 1 No login prompt
+	output enter Guest\13
+	MULTICS_W_PROMPT
+	if fail stop 1 Login failed
+}
